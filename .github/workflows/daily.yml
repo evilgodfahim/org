@@ -1,0 +1,33 @@
+name: Daily Feed
+
+on:
+  workflow_dispatch:   # Run manually anytime
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install feedparser
+        run: pip install feedparser
+
+      - name: Run main.py (daily only)
+        run: python main.py --daily-only
+
+      - name: Commit & push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add daily_feed.xml last_seen.json || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update daily feed"
+            git push
