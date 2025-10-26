@@ -3,7 +3,7 @@ name: Daily Feed
 on:
   schedule:
     - cron: "0 3 * * *"       # 9:00 AM Bangladesh Time = 3:00 AM UTC
-  workflow_dispatch:           # Manual trigger
+  workflow_dispatch:           # Manual trigger anytime
 
 jobs:
   daily:
@@ -23,13 +23,23 @@ jobs:
       - name: Run main.py (daily only)
         run: python main.py --daily-only
 
+      - name: Ensure daily_feed.xml and last_seen.json exist
+        run: |
+          if [ ! -f daily_feed.xml ]; then
+            echo '<rss version="2.0"><channel><title>Daily Feed</title></channel></rss>' > daily_feed.xml
+          fi
+          if [ ! -f last_seen.json ]; then
+            echo '{"last_seen": null}' > last_seen.json
+          fi
+
       - name: Commit & push daily feed
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add daily_feed.xml last_seen.json || true
+          git add daily_feed.xml last_seen.json
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
             git commit -m "Auto update daily feed"
             git push
+          fi
