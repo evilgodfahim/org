@@ -3,7 +3,7 @@ name: Master Feed
 on:
   schedule:
     - cron: "*/30 * * * *"   # Every 30 minutes
-  workflow_dispatch:          # Manual trigger anytime
+  workflow_dispatch:          # Manual trigger
 
 jobs:
   master:
