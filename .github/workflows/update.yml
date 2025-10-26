@@ -1,0 +1,35 @@
+name: Update Feeds
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"      # Every 30 minutes (master feed)
+    - cron: "0 3 * * *"         # 9:00 AM Bangladesh time (UTC+6 = 3:00 AM UTC)
+  workflow_dispatch:             # Optional: run manually from Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install feedparser
+
+      - name: Run main script
+        run: |
+          python main.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add feed_master.xml daily_feed.xml last_seen.json
+          git commit -m "Auto update feeds" || echo "No changes to commit"
+          git push
