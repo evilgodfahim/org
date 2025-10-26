@@ -2,8 +2,8 @@ name: Daily Feed
 
 on:
   schedule:
-    - cron: "0 3 * * *"       # 9:00 AM Bangladesh time = 3:00 AM UTC
-  workflow_dispatch:           # Manual trigger anytime
+    - cron: "0 3 * * *"       # 9:00 AM Bangladesh Time = 3:00 AM UTC
+  workflow_dispatch:           # Manual trigger
 
 jobs:
   daily:
