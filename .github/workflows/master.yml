@@ -2,8 +2,8 @@ name: Master Feed
 
 on:
   schedule:
-    - cron: "*/30 * * * *"   # Every 30 minutes
-  workflow_dispatch:          # Manual trigger
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
 
 jobs:
   master:
@@ -23,13 +23,20 @@ jobs:
       - name: Run main.py (master only)
         run: python main.py --master-only
 
+      - name: Ensure feed_master.xml exists
+        run: |
+          if [ ! -f feed_master.xml ]; then
+            echo '<rss version="2.0"><channel><title>Master Feed</title></channel></rss>' > feed_master.xml
+          fi
+
       - name: Commit & push master feed
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add feed_master.xml || true
+          git add feed_master.xml
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
             git commit -m "Auto update master feed"
             git push
+          fi
