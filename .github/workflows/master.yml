@@ -1,7 +1,9 @@
 name: Master Feed
 
 on:
-  workflow_dispatch:   # Run manually anytime
+  schedule:
+    - cron: "*/30 * * * *"   # Every 30 minutes
+  workflow_dispatch:          # Manual trigger anytime
 
 jobs:
   master:
@@ -15,13 +17,13 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install feedparser
+      - name: Install dependencies
         run: pip install feedparser
 
       - name: Run main.py (master only)
         run: python main.py --master-only
 
-      - name: Commit & push changes
+      - name: Commit & push master feed
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -29,5 +31,5 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update master feed"
+            git commit -m "Auto update master feed"
             git push
