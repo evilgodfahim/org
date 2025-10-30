@@ -8,18 +8,10 @@ from xml.dom import minidom
 # -----------------------------
 # CONFIGURATION
 # -----------------------------
-FEEDS = [
-    "https://politepol.com/fd/lRzLqNhRg2jV.xml",  # মতামত | দৈনিক নয়া দিগন্ত
-    "https://politepol.com/fd/LWVzWA8NSHfJ.xml",  # চিন্তা - দেশ রূপান্তর
-    "https://evilgodfahim.github.io/juop/editorial_news.xml",  # Jugantor Editorials
-    "https://evilgodfahim.github.io/bbop/feed.xml",  # Bonikbarta Editorial
-    "https://evilgodfahim.github.io/bdpratidin-rss/feed.xml",  # BD Pratidin – Open Air Theater
-    "https://fetchrss.com/feed/aLNkZSZkMOtSaLNkNF2oqA-i.rss",  # কলাম - Bangla Tribune
-    "https://politepol.com/fd/4LWXWOY5wPR9.xml",  # Opinion News: Dhaka Post
-    "https://politepol.com/fd/VnoJt9i4mZPJ.xml",  # Editorial | Prothom Alo
-    "https://politepol.com/fd/DrjUg80wxrku.xml",  # মতামত-সমকাল
-    "https://politepol.com/fd/tqu8P8uIlNm1.xml",  # বিষয় – DW
-    "https://feeds.bbci.co.uk/bengali/rss.xml",  # BBC Bangla - মূলপাতা
+FEEDS = ["https://news.un.org/feed/subscribe/en/news/all/rss.xml",
+"https://www.ipsnews.net/feed/",
+"https://www.passblue.com/feed/",
+"https://www.devex.com/feeds/articles"
 ]
 
 MASTER_FILE = "feed_master.xml"
