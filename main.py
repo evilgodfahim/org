@@ -8,7 +8,8 @@ from xml.dom import minidom
 # -----------------------------
 # CONFIGURATION
 # -----------------------------
-FEEDS = ["https://news.un.org/feed/subscribe/en/news/all/rss.xml",
+FEEDS = [
+"https://news.un.org/feed/subscribe/en/news/all/rss.xml",
 "https://www.ipsnews.net/feed/",
 "https://www.passblue.com/feed/",
 "https://www.devex.com/feeds/articles"
